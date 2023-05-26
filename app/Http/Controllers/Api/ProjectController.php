@@ -21,4 +21,21 @@ class ProjectController extends Controller
             'results' => $projects
         ]);
     }
+
+    public function show(string $slug)
+    {
+        $project = Project::where('slug', $slug)->with('tecnologies')->first();
+
+        if ($project) {
+            return response()->json([
+                'success' => true,
+                'results' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'results' => $project
+            ], 404);
+        }
+    }
 }
