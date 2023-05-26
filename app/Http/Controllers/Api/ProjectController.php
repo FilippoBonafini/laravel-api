@@ -14,7 +14,7 @@ class ProjectController extends Controller
         // $projects = Project::paginate(20);
 
         // SPECIFICA ANCHE LE TABELLE RELAZIONATE 
-        $projects = Project::with('tecnologies')->paginate(20);
+        $projects = Project::with('tecnologies', 'type')->paginate(10);
 
         return response()->json([
             'success' => true,
@@ -24,7 +24,7 @@ class ProjectController extends Controller
 
     public function show(string $slug)
     {
-        $project = Project::where('slug', $slug)->with('tecnologies')->first();
+        $project = Project::where('slug', $slug)->with('tecnologies', 'type')->first();
 
         if ($project) {
             return response()->json([
